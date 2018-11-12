@@ -1,0 +1,42 @@
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode first = head;
+        ListNode temp = first.next.next;
+        head = first.next;
+        while(first != null){
+            first.next.next = first;
+            if(temp == null || temp.next == null){
+                first.next = temp;
+                break;
+            }
+            first.next = temp.next;
+            first = temp;
+            temp = first.next.next;
+        }
+        return head;
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        ListNode l1 = new ListNode(1);
+        ListNode l2 = new ListNode(2);
+        ListNode l3 = new ListNode(3);
+        ListNode l4 = new ListNode(4);
+        l1.next = l2;
+        l2.next = l3;
+        l3.next = l4;
+        Solution sol = new Solution();
+        System.out.println(sol.swapPairs(l1).next.next.next.val+"¡¢"+sol.swapPairs(l1).next.val);
+        System.out.println(" "+l1.val+l2.val+l3.val+l4.val);
+    }
+}
